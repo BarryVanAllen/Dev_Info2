@@ -14,7 +14,7 @@ class Fraction:
         PRE : num et den sont des entiers.
         POST : initialise num, den.
                 si den < 0 : appel fonction pour le rendre positif.
-        RAISE: si den = 0 ou str : renvoie une exception.
+        RAISE: si den = 0: renvoie une exception.
                 si le den ou le num n'est pas un entier : renvoie une excpetion.
         """
 
