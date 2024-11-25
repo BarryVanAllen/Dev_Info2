@@ -80,17 +80,21 @@ class Fraction:
                 si le numerateur = 0 alors la fraction = 0.
         """
 
-        # Ajuster le calcul de la partie entière
-        entier = self.num // self.den
-        if self.num < 0 and self.num % self.den != 0:
-            entier += 1  # Corriger la partie entière pour les fractions négatives
-
-        reste = abs(self.num - entier * self.den)  # Reste positif
+        entier = abs(self._num) // abs(self._den)
+        reste = abs(self._num % self._den)  # Reste positif
 
         if reste == 0:  # Si aucun reste, c'est un entier
-            return str(entier)
+            return str(self._num)
 
-        return f"{entier} {reste}/{self.den}"
+        # Pour les fractions négatives
+        if self._num < 0 and entier != 0:
+            return f"-{entier} {reste}/{self._den}"
+
+        else : return f"{self._num}/{self._den}"
+
+        if(self._num > 0 and entier != 0):
+            return f"{entier} {reste}/{self._den}"
+        else : f"{self._num}/{self._den}"
 
 
     # ------------------ Operators overloading ------------------
