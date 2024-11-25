@@ -1,0 +1,33 @@
+from TP09 import Fraction
+
+def main():
+    f1 = Fraction(1, 4)
+    f2 = Fraction(2, 3)
+    f3 = Fraction(-4, 8)
+
+    # Affichage des fractions
+    print(f"Fraction 1 : {f1}")
+    print(f"Fraction 2 : {f2}")
+    print(f"Fraction 3 : {f3}")
+
+    # Opérations arithmétiques
+    print(f"Addition : {f1} + {f2} = {f1 + f2}")
+    print(f"Soustraction : {f1} - {f2} = {f1 - f2}")
+    print(f"Multiplication : {f1} * {f2} = {f1 * f2}")
+    print(f"Division : {f1} / {f2} = {f1 / f2}")
+    print(f"Puissance : {f1} ** 2 = {f1 ** 2}")
+
+    # Vérifications de propriétés
+    print(f"{f1} est un entier ? {f1.is_integer()}")
+    print(f"{f3} est une fraction propre ? {f3.is_proper()}")
+
+    # Représentation mixte
+    print(f"Fraction {f3} en nombre mixte : {f3.as_mixed_number()}")
+
+    # Vérification d'adjacence
+    f4 = Fraction(1, 3)
+    print(f"{f1} et {f4} sont adjacents ? {f1.is_adjacent_to(f4)}")
+
+
+if __name__ == '__main__':
+    main()
