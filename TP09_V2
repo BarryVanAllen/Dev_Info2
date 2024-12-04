@@ -48,18 +48,6 @@ class Fraction:
             self.num = -self.num
             self.den = -self.den
 
-    # méthode ajouté pour simlifier la fraction une fois plutôt que plusieurs fois à travers toute les autres méthodes
-    def reduce(self,):
-        """simplifie la fraction au maximum
-
-        PRE: une fraction valide.
-        POST : la fraction simplifié au maximum.
-        """
-        common_divisor = gcd(self.num, self.den)
-        self.num //= common_divisor
-        self.den //= common_divisor
-
-
     # ------------------ Textual representations ------------------
 
     def __str__(self):
@@ -80,11 +68,9 @@ class Fraction:
                 si le numerateur = 0 alors la fraction = 0.
         """
 
-        if self.num == 0:
-            return "0"
-
-        entier = abs(self.num) // abs(self.den)
+        entier = int((abs(self.num) // abs(self.den)) * (abs(self.num) / self.num))
         reste = abs(self.num) % self.den  # Reste positif
+
 
         if abs(self.num) < abs(self.den):
             return str(self)
@@ -107,14 +93,9 @@ class Fraction:
                 si le résultat final donne numerateur = 0 alors la fraction = 0
          """
     #additionne les deux
-        nbr1 = self.den * other.num
-        nbr2 = self.num * other.den
-        numerateur = nbr1 + nbr2
+        numerateur = self.num * other.den + other.num * self.den
         denominateur = self.den * other.den
-
-        resultat = Fraction(numerateur, denominateur)
-        resultat.reduce()
-        return resultat
+        return Fraction(numerateur, denominateur)
 
 
     def __sub__(self, other):
@@ -127,9 +108,7 @@ class Fraction:
         numerateur = self.num * other.den - other.num * self.den
         denominateur = self.den * other.den
 
-        resultat = Fraction(numerateur, denominateur)
-        resultat.reduce()
-        return resultat
+        return Fraction(numerateur, denominateur)
 
     def __mul__(self, other):
         """Overloading of the * operator for fractions
@@ -141,8 +120,7 @@ class Fraction:
         numerateur = self.num * other.num
         denominateur = self.den * other.den
 
-        resultat = Fraction(numerateur, denominateur)
-        return resultat
+        return Fraction(numerateur, denominateur)
 
     def __truediv__(self, other):
         """Overloading of the / operator for fractions
@@ -157,9 +135,7 @@ class Fraction:
         numerateur = self.num * other.den
         denominateur = self.den * other.num
 
-        resultat = Fraction(numerateur, denominateur)
-        resultat.reduce()
-        return resultat
+        return Fraction(numerateur, denominateur)
 
 
     def __pow__(self, other):
@@ -193,9 +169,7 @@ class Fraction:
 
         RAISE: 'other' n'est pas une fraction ou un entier
         """
-        #si other est un entier
-        if isinstance(other, int):
-            other = Fraction(other,1)
+
 
         # simplifie au max
         gcd_self = gcd(self.num, self.den)
@@ -216,8 +190,7 @@ class Fraction:
         PRE : Une fraction valide
         POST : un nombre flottant
         """
-        nbr = self.num / self.den
-        return nbr
+        return self.num / self.den
 
     # TODO : [BONUS] You can overload other operators if you wish (ex : <, >, ...)
 
@@ -230,7 +203,6 @@ class Fraction:
         POST : si fraction = 0 : True
                 sinon False
         """
-        self.reduce()
         return self.num / self.den == 0
 
     def is_integer(self):
@@ -240,7 +212,6 @@ class Fraction:
         POST : si fraction est un entier (nul, positif ou négatif) : True
                 sinon : False
         """
-        self.reduce()
         return self.num % self.den == 0
 
     def is_proper(self):
@@ -251,7 +222,6 @@ class Fraction:
             si |fraction| >= 1 : False
 
         """
-        self.reduce()
         return abs(self.num) < abs(self.den)
 
     def is_unit(self):
@@ -261,8 +231,10 @@ class Fraction:
         POST : si num == 1 : True
                 si num != 1 : False
         """
-        resultat = Fraction(self.num, self.den)
-        resultat.reduce()
+        common_divisor = gcd(self.num, self.den)
+        self.num //= common_divisor
+        self.den //= common_divisor
+
         return self.num == 1
 
     def is_adjacent_to(self, other):
